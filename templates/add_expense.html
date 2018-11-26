@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1>New Expense</h1>
+<br>
+<form action="/add_expense/{{ aid }}" method="POST">
+    Date:
+    <input type="date" name="tdate" max="{{ today }}" required>
+    <br>
+    Payee:
+    <select name="pid" id="pid">
+      {% for pid, person in people:%}
+        <option value="{{ pid }}">{{ person }}</option>
+      {% endfor %}
+    </select>
+    <br>
+    Payment Option:
+    <select name="oid" id="oid">
+      {% for oid, option in options:%}
+        <option value="{{ oid }}">{{ option }}</option>
+      {% endfor %}
+    </select>
+    <br>
+    Label:
+    <input list="labels" name="tlabel">
+    <datalist id="labels">
+      {% for tlabel in labels:%}
+        <option value="{{ tlabel }}">{{ tlabel }}</option>
+      {% endfor %}
+    </datalist>
+    <br>
+    Amount:
+    <input type="number" name="tamount" min="0.01" step="0.01" required>
+    <br>
+    Description:
+    <input type="text" name="tdescription">
+    <br>
+    <input type="submit" value="Add">
+</form>
+
+<b><a href = '/view_trackingaccount/{{ aid }}/{{ cacheTime }}'>click here to go back</a></b>
+{% endblock %}
